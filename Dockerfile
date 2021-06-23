@@ -1,5 +1,5 @@
 FROM python:3.8.10-buster
-
+ENV PYTHONUNBUFFERED=1
 COPY requirements.txt /app/requirements.txt
 
 # Configure server
@@ -14,5 +14,6 @@ ADD . .
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "dockercarpred.wsgi:application"]
+#CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "dockercarpred.wsgi:application"]
 #CMD gunicorn dockercarpred.wsgi:application --bind 0.0.0.0:$PORT
+CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
